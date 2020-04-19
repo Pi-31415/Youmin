@@ -1,25 +1,14 @@
 {
-  "name": "youmin",
-  "version": "1.0.0",
-  "description": "Minimal Youtube to avoid distraction",
+  "name": "Youmin",
+  "version": "0.1.0",
   "main": "main.js",
   "scripts": {
-    "test": "electron ."
+    "start": "electron ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Pi-31415/Youmin.git"
-  },
-  "keywords": [
-    "productivity"
-  ],
-  "author": "Pi",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Pi-31415/Youmin/issues"
-  },
-  "homepage": "https://github.com/Pi-31415/Youmin#readme",
-  "devDependencies": {
-    "electron": "^8.2.3"
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "puppeteer": "^3.0.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
   }
 }

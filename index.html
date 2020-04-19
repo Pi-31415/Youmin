@@ -2,14 +2,113 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Youmin</title>
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttonbar{
+  color:#1e88e5;
+  text-decoration:none;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #1e88e5;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <center>
+      <br><br>
+    <h2>Youmin</h2>
+    <p>Minimize distraction from YouTube</p>
+
+
+    <br>
+    <input type="text" id="querybar" value="" placeholder="What do you need?" width="300px" autofocus>
+    <a href="#" onclick="youtubequery()" id="myBtn" style='color:#1e88e5;text-decoration:none'><b> - Search</b></a>
+
+    <br>  <br>
+
+    <div id="display"></div>
+
+    <br><br>
+    <div id="result"></div>
+  </center>
+    <script>
+
+    function watch(url){
+      document.getElementById("display").innerHTML = "";
+      //alert(url);
+      var urlnew = url.split("v=");
+      //alert(urlnew[1]);
+      document.getElementById("display").innerHTML = "<iframe width='720' height='500' src='https://www.youtube.com/embed/"+urlnew[1]+"?rel=0'></iframe>";
+    }
+
+    function youtubequery(){
+      document.getElementById("display").innerHTML = "";
+      document.getElementById("result").innerHTML = "<div class='loader'></div>";
+      var yquery = document.getElementById("querybar").value;
+      const rp = require('request-promise');
+      const url = 'https://www.youtube.com/results?search_query='+yquery;
+      const cheerio = require('cheerio');
+      rp(url)
+        .then(function(html){
+          //success!
+          document.getElementById("result").innerHTML = "";
+          const $ = cheerio.load(html);
+
+          console.log($('div > h3 > a', html).length);
+          console.log($('div > h3 > a', html));
+
+          const wikiUrls = [];
+          for (let i = 0; i < $('div > h3 > a', html).length; i++) {
+            wikiUrls.push($('div > h3 > a', html)[i].attribs.title);
+
+            document.getElementById("result").innerHTML += $('div > h3 > a', html)[i].attribs.title + " - <a class='buttonbar' href='#display' onclick=\"watch('"+$('div > h3 > a', html)[i].attribs.href+"')\">[Watch]</a>" +"<br><br>";
+
+          }
+          console.log(wikiUrls);
+        })
+        .catch(function(err){
+          //handle error
+        });
+
+    }
+
+    var input = document.getElementById("querybar");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+       event.preventDefault();
+       youtubequery();
+      }
+    });
+
+
+    </script>
+
+
   </body>
 </html>
