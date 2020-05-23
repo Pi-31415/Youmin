@@ -1,2 +1,4 @@
-# Electron-Test
- Testing my first Electron App
+# Youmin
+ An Mac OS app for minimal distraction from YouTube
+ 
+ ![Image of screenshot](preview.png)
