@@ -1,7 +1,7 @@
 # Youmin
  An Mac OS app for minimal distraction from YouTube.
  
- Demonstration at (http://paingthet.com/projvid/youmin.mp4)
+ Demonstration at (https://paingthet.com/projvid/youmin.mp4)
  
  Available for download (OS X Only) at (http://paingthet.com/downloads/Youmin.zip).
  
